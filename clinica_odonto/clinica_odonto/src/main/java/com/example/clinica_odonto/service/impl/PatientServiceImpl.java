@@ -1,37 +1,31 @@
 package com.example.clinica_odonto.service.impl;
 
+import com.example.clinica_odonto.model.Address;
 import com.example.clinica_odonto.model.Patient;
-import com.example.clinica_odonto.service.PatientService;
+import com.example.clinica_odonto.service.OdontoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-public class PatientServiceImpl implements PatientService {
+public class PatientServiceImpl implements OdontoService<Patient> {
     private static Map<Integer, Patient> patientMap = new HashMap<>();
     private static Integer idGlobal = 1;
 
-    private static String[] names = {"Lucas", "Ana", "Pedro", "Julia", "Roberto",
-            "Larissa", "Antonio", "Pietra", "Rubens", "Giovana"};
-
-    private static String[] lastnames = {"Silva", "Santos", "Gomes", "Paglia", "Grisa",
-            "Andrade", "Quinteiros", "Tempesta", "Franco", "Andrade"};
+    @Autowired
+    AddressServiceImpl addressService;
 
     @Override
-    public Patient create() {
-        Random random = new Random();
-        int numRamd = 10;
-        String name = names[random.nextInt(numRamd)];
-        String lastname = lastnames[random.nextInt(numRamd)];
-        String email = name.toLowerCase() + lastname.toLowerCase() + "@dh.com.br";
-        Integer id = patientMap.size() + 1;
-
-        patientMap.put(idGlobal++, new Patient(name, lastname, email, (random.nextInt(12, 80))));
-        return patientMap.get(id);
+    public Patient create(Patient patient) {
+        patient.setAddressId(addressService.create(patient.getAddress()).getId());
+        patient.setId(idGlobal);
+        patientMap.put(idGlobal++, patient);
+        return patient;
     }
 
     @Override
-    public Map<Integer, Patient> list() {
+    public Map<Integer, Patient> listAll() {
         return patientMap;
     }
 
@@ -42,14 +36,16 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Patient search(Integer id) {
-        return patientMap.get(id);
+        Patient patient = patientMap.get(id);
+        patient.setAddress(addressService.search(patient.getAddressId()));
+        return patient;
     }
 
     @Override
-    public Patient update(Integer id, String name) {
-        Patient patient = search(id);
-       patient.setName(name);
-       patient.setEmail(name.toLowerCase() + patient.getLastname().toLowerCase() + "@dh.com.br");
+    public Patient update(Patient patient) {
+//        Patient patient = search(id);
+//       patient.setName(name);
+//       patient.setEmail(name.toLowerCase() + patient.getLastname().toLowerCase() + "@dh.com.br");
        return patient;
     }
 }

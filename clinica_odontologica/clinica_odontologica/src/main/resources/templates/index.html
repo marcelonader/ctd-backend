@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Paciente</title>
+</head>
+<body>
+<section th:if="${tipo == 'paciente'}">
+    <div th:if="${pacientes}">
+        <h1>Lista de Pacientes</h1>
+        <tr th:each="paciente, i: ${pacientes}">
+            <br>
+            <p th:text="${'====================PACIENTE ID: ' + paciente.id + '===================='}"></p>
+            <p th:text="${'Nome: ' + paciente.nome + ' ' + paciente.sobrenome}"></p>
+            <p th:text="${'E-mail: ' + paciente.email}"></p>
+            <p th:text="${'CPF: ' + paciente.cpf}"></p>
+            <br>
+        </tr>
+    </div>
+    <div th:if="${nome}">
+        <h1 th:text="${'Olá Paciente ' + nome + ' ' + sobrenome}"></h1>
+    </div>
+</section>
+<section th:if="${tipo == 'dentista'}">
+    <div th:if="${dentistas}">
+        <h1>Lista de Dentistas</h1>
+        <tr th:each="dentista, i: ${dentistas}">
+            <br>
+            <p th:text="${'====================DENTISTA ID: ' + dentista.id + '===================='}"></p>
+            <p th:text="${'Nome: ' + dentista.nome + ' ' + dentista.sobrenome}"></p>
+            <p th:text="${'E-mail: ' + dentista.matricula}"></p>
+            <br>
+        </tr>
+    </div>
+    <div th:if="${nome}">
+        <h1 th:text="${'Olá Dentista ' + nome + ' ' + sobrenome}"></h1>
+    </div>
+</section>
+</body>
+</html>

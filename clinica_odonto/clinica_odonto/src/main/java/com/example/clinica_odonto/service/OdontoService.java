@@ -4,10 +4,10 @@ import com.example.clinica_odonto.model.Patient;
 
 import java.util.Map;
 
-public interface OdontoService {
-    Patient create();
-    Map<Integer, Patient> list();
+public interface OdontoService<T> {
+    T create(T t);
+    Map<Integer, T> listAll();
     void delete(Integer id);
-    Patient search(Integer id);
-    Patient update(Integer id, String name);
+    T search(Integer id);
+    T update(T t);
 }

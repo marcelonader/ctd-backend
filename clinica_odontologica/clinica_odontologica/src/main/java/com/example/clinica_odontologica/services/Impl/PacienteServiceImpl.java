@@ -31,4 +31,9 @@ public class PacienteServiceImpl implements PacienteService {
 
         return null;
     }
+
+    @Override
+    public Paciente buscarPorId(Integer id) {
+        return null;
+    }
 }

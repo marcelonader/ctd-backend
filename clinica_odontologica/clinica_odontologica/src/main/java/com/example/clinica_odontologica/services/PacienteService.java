@@ -7,4 +7,5 @@ import java.util.List;
 public interface PacienteService {
     List<Paciente> listarTodos();
     Paciente buscarPorEmail(String email);
+    Paciente buscarPorId(Integer id);
 }
