@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="exMesaIntegradora-15-clinicaodontologia" />
+        <module name="exMesaIntegradora-15" />
       </profile>
     </annotationProcessing>
   </component>
